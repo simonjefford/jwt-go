@@ -22,7 +22,7 @@ func (m *SigningMethodRS256) Alg() string {
 	return "RS256"
 }
 
-func (m *SigningMethodRS256) Verify(signingString, signature string, key []byte) error {
+func (m *SigningMethodRS256) Verify(signingString, signature string, key interface{}) error {
 	var err error
 
 	// Decode the signature
@@ -33,7 +33,7 @@ func (m *SigningMethodRS256) Verify(signingString, signature string, key []byte)
 
 	// Parse public key
 	var rsaKey *rsa.PublicKey
-	if rsaKey, err = m.parsePublicKey(key); err != nil {
+	if rsaKey, err = m.parsePublicKey(key.([]byte)); err != nil {
 		return err
 	}
 
@@ -47,12 +47,12 @@ func (m *SigningMethodRS256) Verify(signingString, signature string, key []byte)
 
 // Implements the Sign method from SigningMethod
 // For this signing method, must be PEM encoded PKCS1 or PKCS8 RSA private key
-func (m *SigningMethodRS256) Sign(signingString string, key []byte) (string, error) {
+func (m *SigningMethodRS256) Sign(signingString string, key interface{}) (string, error) {
 	var err error
 
 	// Key
 	var rsaKey *rsa.PrivateKey
-	if rsaKey, err = m.parsePrivateKey(key); err != nil {
+	if rsaKey, err = m.parsePrivateKey(key.([]byte)); err != nil {
 		return "", err
 	}
 
