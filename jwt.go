@@ -43,6 +43,14 @@ func New(method SigningMethod) *Token {
 	}
 }
 
+func (t *Token) Kid() string {
+	if kid, ok := t.Header[HeaderKid].(string); ok {
+		return kid
+	}
+
+	return ""
+}
+
 // Get the complete, signed token
 func (t *Token) SignedString(key []byte) (string, error) {
 	var sig, sstr string
