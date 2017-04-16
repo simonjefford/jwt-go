@@ -29,7 +29,7 @@ Parsing and verifying tokens is pretty straight forward.  You pass in the token 
 		deliverUtterRejection(":(")
 	}
 ```
-	
+
 ## Create a token
 
 ```go
@@ -40,7 +40,7 @@ Parsing and verifying tokens is pretty straight forward.  You pass in the token 
 	token.Claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 	// Sign and get the complete encoded token as a string
 	tokenString, err := token.SignedString(mySigningKey)
-```	
+```
 
 ## Project Status & Versioning
 
